@@ -1,6 +1,23 @@
+import java.util.Scanner;
+
 public class app{
     public static void main(String[] args){
-        System.out.println("Ackermann(0, 1) = " + Ackermann(0, 1));
+        Scanner in = new Scanner(System.in);
+        System.out.println("Programa de Ackermann");
+        System.out.print("Insira o valor de m: ");
+        int m = in.nextInt();
+        if (m < 0){
+            System.out.println("Valor de m inválido");
+            System.exit(0);
+        }
+        System.out.print("Insira o valor de n: ");
+        int n = in.nextInt();
+        if (n < 0){
+            System.out.println("Valor de n inválido");
+            System.exit(0);
+        }
+        System.out.println("A(" + m + ", " + n + ") = " + Ackermann(m, n));
+        in.close();
     }
 
     public static int Ackermann(int m, int n){

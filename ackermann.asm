@@ -117,7 +117,8 @@ encerra:
     la $a0, negativo
     li $v0, 4        # passo o valor 4 para o v0 que significa impressão de string
     syscall
-    j fim
+    li $v0, 10       # passo o valor 10 para o v0 que significa encerrar o programa
+    syscall
 
 fim:    
     la $t5, result   # pega o endereço da variável result

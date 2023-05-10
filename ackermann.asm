@@ -1,12 +1,3 @@
-# public static int Ackermann(int m, int n){
-#         if(m == 0){
-#             return n + 1;
-#         }else if(n == 0){
-#             return Ackermann(m - 1, 1);
-#         }else{
-#             return Ackermann(m - 1, Ackermann(m, n - 1));
-#         }
-#     }
 
 .data
     entrada: .asciiz "Programa de Ackermann \n"
@@ -64,6 +55,58 @@ continuaN:
     sw $t0, 0($t1)  # salva o valor de retorno na variável result
     j fim           # vai terminar o programa
 
+encerra:
+    la $a0, negativo
+    li $v0, 4        # passo o valor 4 para o v0 que significa impressão de string
+    syscall
+    li $v0, 10       # passo o valor 10 para o v0 que significa encerrar o programa
+    syscall
+
+fim:    
+    la $t5, result   # pega o endereço da variável result
+    lw $t5, 0($t5)   # pega o valor da variável result
+    la $t6 , m      # pega o endereço da variável m
+    lw $t6, 0($t6)   # pega o valor da variável m
+    la $t7 , n      # pega o endereço da variável n
+    lw $t7, 0($t7)   # pega o valor da variável n
+    la $t4, printResult1 # pega o endereço da string printResult1
+    li $v0, 4        # passo o valor 4 para o v0 que significa impressão de string
+    move $a0, $t4    # passo o endereço da string printResult1 para o a0
+    syscall
+    li $v0, 1        # passo o valor 1 para o v0 que significa impressão de inteiro
+    move $a0, $t6   # passo o valor de m para o a0
+    syscall
+    la $t4, printResult2 # pega o endereço da string printResult2
+    li $v0, 4        # passo o valor 4 para o v0 que significa impressão de string
+    move $a0, $t4    # passo o endereço da string printResult2 para o a0
+    syscall
+    li $v0, 1        # passo o valor 1 para o v0 que significa impressão de inteiro
+    move $a0, $t7   # passo o valor de n para o a0
+    syscall
+    la $t4, printResult3 # pega o endereço da string printResult3
+    li $v0, 4        # passo o valor 4 para o v0 que significa impressão de string
+    move $a0, $t4    # passo o endereço da string printResult3 para o a0
+    syscall
+    li $v0, 1        # passo o valor 1 para o v0 que significa impressão de inteiro
+    move $a0, $t5   # passo o valor de result para o a0
+    syscall
+    li $v0, 11      # passo o valor 11 para o v0 que significa impressão de caractere
+    li $a0, '\n'   # passo o valor de \n para o a0
+    syscall
+
+    li $v0, 10       # passo o valor 10 para o v0 que significa encerrar o programa
+    syscall
+
+### Função de Ackermann ###
+# public static int Ackermann(int m, int n){
+#         if(m == 0){
+#             return n + 1;
+#         }else if(n == 0){
+#             return Ackermann(m - 1, 1);
+#         }else{
+#             return Ackermann(m - 1, Ackermann(m, n - 1));
+#         }
+#     }
 Ackermann:
     lw $t0, 8($sp)   # recupera o valor de m da pilha
     lw $t1, 4($sp)   # recupera o valor de n da pilha
@@ -112,49 +155,5 @@ else2:
     addi $sp, $sp, 16 # desaloca espaço para os parâmetros e para o retorno
     sw $t0, 8($sp)   # salva o valor de retorna da chamada recursiva A(m - 1, 1) na pilha
     jr $ra           # retorna para o endereço de retorno
-
-encerra:
-    la $a0, negativo
-    li $v0, 4        # passo o valor 4 para o v0 que significa impressão de string
-    syscall
-    li $v0, 10       # passo o valor 10 para o v0 que significa encerrar o programa
-    syscall
-
-fim:    
-    la $t5, result   # pega o endereço da variável result
-    lw $t5, 0($t5)   # pega o valor da variável result
-    la $t6 , m      # pega o endereço da variável m
-    lw $t6, 0($t6)   # pega o valor da variável m
-    la $t7 , n      # pega o endereço da variável n
-    lw $t7, 0($t7)   # pega o valor da variável n
-    la $t4, printResult1 # pega o endereço da string printResult1
-    li $v0, 4        # passo o valor 4 para o v0 que significa impressão de string
-    move $a0, $t4    # passo o endereço da string printResult1 para o a0
-    syscall
-    li $v0, 1        # passo o valor 1 para o v0 que significa impressão de inteiro
-    move $a0, $t6   # passo o valor de m para o a0
-    syscall
-    la $t4, printResult2 # pega o endereço da string printResult2
-    li $v0, 4        # passo o valor 4 para o v0 que significa impressão de string
-    move $a0, $t4    # passo o endereço da string printResult2 para o a0
-    syscall
-    li $v0, 1        # passo o valor 1 para o v0 que significa impressão de inteiro
-    move $a0, $t7   # passo o valor de n para o a0
-    syscall
-    la $t4, printResult3 # pega o endereço da string printResult3
-    li $v0, 4        # passo o valor 4 para o v0 que significa impressão de string
-    move $a0, $t4    # passo o endereço da string printResult3 para o a0
-    syscall
-    li $v0, 1        # passo o valor 1 para o v0 que significa impressão de inteiro
-    move $a0, $t5   # passo o valor de result para o a0
-    syscall
-    li $v0, 11      # passo o valor 11 para o v0 que significa impressão de caractere
-    li $a0, '\n'   # passo o valor de \n para o a0
-    syscall
-
-    li $v0, 10       # passo o valor 10 para o v0 que significa encerrar o programa
-    syscall
-
-
 
     
